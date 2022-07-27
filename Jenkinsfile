@@ -56,7 +56,7 @@ pipeline {
                         git clone https://shclub:${gitHubAccessToken}@${gitOpsUrl}
                         cd ./${GIT_OPS_NAME}
                         git checkout ${ENV}
-                        source test.txt
+                        echo 'test' >>  test.txt
                         git config --global user.email "shclub@gmail.com"
                         git config --global user.name "shclub"
                         git config --global credential.helper store

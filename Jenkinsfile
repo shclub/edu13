@@ -59,12 +59,12 @@ pipeline {
                         git checkout master
                         echo 'test' >>  test2.txt
                         git remote -v
-                        git version
                         git config --global user.email "shclub@gmail.com"
                         git config --global user.name "shclub"
+                        git config --global credential.helper store
                         git add .
                         git commit -am 'update image tag ${TAG}'
-                        git config --global user.name
+                        git remote set-url origin https://shclub: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@github.com/shclub/edu13-gitops
                         git push origin master
                     """
                 }

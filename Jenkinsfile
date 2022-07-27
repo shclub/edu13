@@ -37,7 +37,7 @@ pipeline {
                                 chmod 777 ./mvnw                             
                                 echo 'TAG => ' ${TAG}
                                 echo 'ENV => ' ${ENV}
-                                export SKAFFOLD_CACHE_ARTIFACTS=false
+                                export SKAFFOLD_CACHE_ARTIFACTS=true
                                 skaffold build -p ${ENV} -t ${TAG}
                             """
                         //}

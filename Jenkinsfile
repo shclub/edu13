@@ -64,7 +64,7 @@ pipeline {
                         git config --global credential.helper store
                         git add .
                         git commit -am 'update image tag ${TAG}'
-                        git remote set-url origin https://shclub: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@github.com/shclub/edu13-gitops
+                        git remote set-url origin https://github_ci_token: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@github.com/shclub/edu13-gitops
                         git push origin master
                     """
                 }

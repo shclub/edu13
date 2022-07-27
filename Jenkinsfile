@@ -5,7 +5,7 @@ def gitOpsUrl = "github.com/${GIT_ACCOUNT}/${GIT_OPS_NAME}"
 def gitHubOrigin = "github.com/${GIT_ACCOUNT}/${PROJECT_NAME}"
 def gitHubUrl = "https://${gitHubOrigin}"
 def NEXUS_URL = 'https://next.test.co.kr'
-def gitHubAccessToken = "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"
+def gitHubAccessToken = "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"
 def TAG = getTag()
 def ENV = getENV()
 def dockerCredentials = 'docker_ci'
@@ -53,7 +53,7 @@ pipeline {
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
-                        git clone https://github_ci:${gitHubAccessToken}@${gitOpsUrl}
+                        git clone https://shclub:${gitHubAccessToken}@${gitOpsUrl}
                         cd ./${GIT_OPS_NAME}
                         ls
                         git checkout master

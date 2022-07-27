@@ -64,6 +64,7 @@ pipeline {
                         git config --global user.name "shclub"
                         git add .
                         git commit -am 'update image tag ${TAG}'
+                        git config --global user.name
                         git push origin master
                     """
                 }

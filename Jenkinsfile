@@ -1,7 +1,7 @@
 def PROJECT_NAME = "edu13-backend"
 def GIT_OPS_NAME = "edu13-gitops"
 def GIT_ACCOUNT = "shclub"
-def gitOpsUrl = "github.com/${GIT_OPS_NAME}.git"
+def gitOpsUrl = "github.com/${GIT_ACCOUNT}/${GIT_OPS_NAME}.git"
 def gitHubOrigin = "github.com/${GIT_ACCOUNT}/${PROJECT_NAME}.git"
 def gitHubUrl = "https://${gitHubOrigin}"
 def NEXUS_URL = 'https://next.test.co.kr'
@@ -53,7 +53,7 @@ pipeline {
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
-                        git clone https://shclub:${gitHubAccessToken}@${gitOpsUrl}
+                        git clone https://shclub:shcl2390@${gitOpsUrl}
                         cd ./${GIT_OPS_NAME}
                         git checkout master
                         echo 'test' >>  test2.txt

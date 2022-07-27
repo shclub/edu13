@@ -53,8 +53,9 @@ pipeline {
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
-                        git clone https://shclub:shcl2390@${gitOpsUrl}
+                        git clone https://shclub:${gitHubAccessToken}@${gitOpsUrl}
                         cd ./${GIT_OPS_NAME}
+                        ls
                         git checkout master
                         echo 'test' >>  test2.txt
                         git config --global user.email "shclub@gmail.com"

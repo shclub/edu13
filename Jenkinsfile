@@ -55,7 +55,7 @@ pipeline {
                         rm -rf ./${GIT_OPS_NAME}
                         git clone https://shclub:${gitHubAccessToken}@${gitOpsUrl}
                         cd ./${GIT_OPS_NAME}
-                        git checkout ${ENV}
+                        git checkout master
                         kustomize edit set image ${GIT_ACCOUNT}/${PROJECT_NAME}:${TAG}
                         git config --global user.email "shclub@gmail.com"
                         git config --global user.name "shclub"

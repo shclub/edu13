@@ -17,7 +17,7 @@ pipeline {
             // ## https://github.com/shclub/dockerfile 참고
             image 'shclub/build-tool:v1.0.0'
             // ## jenkins slave 가 Docker로 뜬 경우  ( docker in docker )
-            //args '-u root:root -v /var/run/docker.sock:/var/run/docker.sock'
+            args '-u root:root -v /var/run/docker.sock:/var/run/docker.sock'
             // ## Docker hub 사용시 불필요
             //registryUrl NEXUS_URL
             //registryCredentialsId 'docker_ci'
@@ -37,7 +37,6 @@ pipeline {
                                 chmod 777 ./mvnw
                                 echo 'TAG => ' ${TAG}
                                 echo 'ENV => ' ${ENV}
-                                skaffold config set default-repo docker.io
                                 skaffold build -p ${ENV} -t ${TAG}
                             """
                         //}

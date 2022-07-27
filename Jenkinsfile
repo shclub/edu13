@@ -62,7 +62,7 @@ pipeline {
                         git config --global user.name "shclub"
                         git config --global credential.helper store
                         git config --global -l --show-origin
-                        git remote set-url origin https://${gitHubAccessToken}@github.com/${GIT_ACCOUNT}/${GIT_OPS_NAME}
+                        git remote set-url origin https://shclub:${gitHubAccessToken}@github.com/${GIT_ACCOUNT}/${GIT_OPS_NAME}
                         git remote -v
                         git add .
                         git commit -am 'update image tag ${TAG}'

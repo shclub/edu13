@@ -64,14 +64,14 @@ pipeline {
                         git config --global user.name "shclub"
                         git add .
                         git commit -am 'update image tag ${TAG}'
-                        git remote set-url origin https://shclub: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@github.com/shclub/edu13-gitops
                         git push origin master
                     """
                 }
                 print "git push finished !!!"
             }
         }
-            //
+            //                        git remote set-url origin https://shclub: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@github.com/shclub/edu13-gitops
+
             
                       //  git config --global user.email "shclub@gmail.com"
                        // git config --global user.name "shclub"

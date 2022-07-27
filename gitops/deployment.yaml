@@ -11,8 +11,8 @@ spec:
       app: edu13-backend
   template:
     metadata:
-#      annotations:
-#        sidecar.istio.io/inject: "true"    
+      annotations:
+        sidecar.istio.io/inject: "false"
       labels:
         app: edu13-backend
     spec:

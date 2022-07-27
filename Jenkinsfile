@@ -61,7 +61,7 @@ pipeline {
                         git config --global user.name "shclub"
                         git config --global credential.helper store
                         git config --global -l --show-origin
-                        gir remote -v
+                        git remote -v
                         git add .
                         git commit -am 'update image tag ${TAG}'
                         git push  origin master

@@ -10,7 +10,6 @@ def TAG = getTag()
 def ENV = getENV()
 def dockerCredentials = 'docker_ci'
 
-/////////////////////////////
 pipeline {
         
     agent {
@@ -38,6 +37,7 @@ pipeline {
                                 chmod 777 ./mvnw
                                 echo 'TAG => ' ${TAG}
                                 echo 'ENV => ' ${ENV}
+                                skaffold config set default-repo docker.io
                                 skaffold build -p ${ENV} -t ${TAG}
                             """
                         //}

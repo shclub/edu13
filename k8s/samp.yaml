@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: samp-svc
+  namespace: default
+spec:
+  selector:
+    app: samp
+  
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: http
+  #   nodePort: 32180
+  # type: NodePort
+
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: samp-deploy
+  namespace: default
+  labels:
+    app: samp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: samp
+  template:
+    metadata:
+#      annotations:
+#        sidecar.istio.io/inject: "true"
+      labels:
+        app: samp
+    spec:
+      containers:
+        - name: samp
+          image: shclub/edu1
+          ports:
+          - name: http
+            containerPort: 8080

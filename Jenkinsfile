@@ -5,7 +5,7 @@ def gitOpsUrl = "github.com/${GIT_ACCOUNT}/${GIT_OPS_NAME}.git"
 def gitHubOrigin = "github.com/${GIT_ACCOUNT}/${PROJECT_NAME}.git"
 def gitHubUrl = "https://${gitHubOrigin}"
 def NEXUS_URL = 'https://next.test.co.kr'
-def gitHubAccessToken = "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"
+def gitHubAccessToken = "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"
 def TAG = getTag()
 def ENV = getENV()
 def dockerCredentials = 'docker_ci'
@@ -55,7 +55,7 @@ pipeline {
                         rm -rf ./${GIT_OPS_NAME}
                         git clone https://shclub:${gitHubAccessToken}@${gitOpsUrl}
                         cd ./${GIT_OPS_NAME}
-                        git checkout master
+                        git checkout ${ENV}
                         kustomize edit set image ${GIT_ACCOUNT}/${PROJECT_NAME}:${TAG}
                         git config --global user.email "shclub@gmail.com"
                         git config --global user.name "shclub"
@@ -64,7 +64,7 @@ pipeline {
                         git remote -v
                         git add .
                         git commit -am 'update image tag ${TAG}'
-                        git push  origin master
+                        git push  origin ${ENV}
                     """
                 }
                 print "git push finished !!!"

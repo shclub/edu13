@@ -56,7 +56,7 @@ pipeline {
                         git clone https://shclub:${gitHubAccessToken}@${gitOpsUrl}
                         cd ./${GIT_OPS_NAME}
                         git checkout ${ENV}
-                        kustomize edit set image ${GIT_ACCOUNT}/${PROJECT_NAME}:${TAG}
+                        source test.txt
                         git config --global user.email "shclub@gmail.com"
                         git config --global user.name "shclub"
                         git config --global credential.helper store
@@ -70,6 +70,8 @@ pipeline {
                 print "git push finished !!!"
             }
         }
+
+//                                    kustomize edit set image ${GIT_ACCOUNT}/${PROJECT_NAME}:${TAG}
 
         stage('Cleaning up') {
                     steps {

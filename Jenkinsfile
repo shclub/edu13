@@ -101,7 +101,7 @@ def getENV(){
     def gitBranch = "${scm.branches[0].name.split("/")[1]}"
 
     if( gitBranch == "master" ){
-         deployENV = "master"
+         deployENV = "dev"
     }else if( gitBranch == "develop" ){
          deployENV = gitBranch
     }else{

@@ -1,0 +1,17 @@
+apiVersion: skaffold/v2beta18
+kind: Config
+profiles:
+  - name: dev
+    build:
+      local:
+        push: true # false는 로컬 테스트
+      artifacts:
+        - image: shclub/edu13
+        #- image: edu14   # local
+          jib:
+            args:
+              - -DskipTests
+              #- "-Dgs ${maven_settings}"
+              # local 이면 SPRING_PROFILES_ACTIVE=local
+              - "-Djib.container.environment=SPRING_PROFILES_ACTIVE=dev"
+            fromImage: shclub/jre17-runtime:v1.0.0

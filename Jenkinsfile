@@ -55,8 +55,8 @@ pipeline {
                         rm -rf ./${GIT_OPS_NAME}
                         git clone https://shclub:${gitHubAccessToken}@${gitOpsUrl}
                         cd ./${GIT_OPS_NAME}
-                        git checkout ${ENV}
-                        echo 'test' >>  test.txt
+                        git checkout master
+                        echo 'test' >>  test2.txt
                         git config --global user.email "shclub@gmail.com"
                         git config --global user.name "shclub"
                         git config --global credential.helper store
@@ -64,7 +64,7 @@ pipeline {
                         git remote -v
                         git add .
                         git commit -am 'update image tag ${TAG}'
-                        git push  origin ${ENV}
+                        git push origin master
                     """
                 }
                 print "git push finished !!!"

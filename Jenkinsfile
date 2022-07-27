@@ -21,7 +21,7 @@ pipeline {
             // ## Docker hub 사용시 불필요
             //registryUrl NEXUS_URL
             //registryCredentialsId 'docker_ci'
-            //reuseNode true
+            reuseNode true
         }
     }
 

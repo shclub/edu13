@@ -34,9 +34,10 @@ pipeline {
                         //configFileProvider([configFile(fileId: 'icis-tr-maven_setting', variable: 'maven_settings')]) {
                             sh  """
                                 pwd
-                                chmod 777 ./mvnw
+                                chmod 777 ./mvnw                             
                                 echo 'TAG => ' ${TAG}
                                 echo 'ENV => ' ${ENV}
+                                export SKAFFOLD_CACHE_ARTIFACTS=false
                                 skaffold build -p ${ENV} -t ${TAG}
                             """
                         //}

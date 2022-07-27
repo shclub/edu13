@@ -1,4 +1,4 @@
-apiVersion: skaffold/v2beta29
+apiVersion: skaffold/v2beta18
 kind: Config
 profiles:
   - name: dev

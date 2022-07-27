@@ -61,7 +61,7 @@ pipeline {
                         git config --global user.name "shclub"
                         git add .
                         git commit -am 'update image tag ${TAG}'
-                        git push origin ${ENV}
+                        git push origin master
                     """
                 }
                 print "git push finished !!!"

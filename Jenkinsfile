@@ -58,20 +58,22 @@ pipeline {
                         ls
                         git checkout master
                         echo 'test' >>  test2.txt
-                        git config --global user.email "shclub@gmail.com"
-                        git config --global user.name "shclub"
-                        git config --global credential.helper store
-                        git config --global -l --show-origin
-                        git remote set-url origin https://shclub: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@github.com/shclub/edu13-gitops
                         git remote -v
                         git add .
                         git commit -am 'update image tag ${TAG}'
+                        git remote set-url origin https://shclub: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@github.com/shclub/edu13-gitops
                         git push origin master
                     """
                 }
                 print "git push finished !!!"
             }
         }
+            //
+            
+                      //  git config --global user.email "shclub@gmail.com"
+                       // git config --global user.name "shclub"
+                       // git config --global credential.helper store
+                        //git config --global -l --show-origin
             //                        git remote set-url origin https://github_ci:${gitHubAccessToken}@${gitOpsUrl}
 
 

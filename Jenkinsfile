@@ -53,7 +53,7 @@ pipeline {
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
-                        git clone https://${gitOpsUrl}
+                        git clone https://github_ci:${gitHubAccessToken}@${gitOpsUrl}
                         cd ./${GIT_OPS_NAME}
                         ls
                         git checkout master
@@ -62,7 +62,6 @@ pipeline {
                         git config --global user.name "shclub"
                         git config --global credential.helper store
                         git config --global -l --show-origin
-                        git remote set-url origin https://github_ci:${gitHubAccessToken}@${gitOpsUrl}
                         git remote -v
                         git add .
                         git commit -am 'update image tag ${TAG}'
@@ -72,6 +71,8 @@ pipeline {
                 print "git push finished !!!"
             }
         }
+            //                        git remote set-url origin https://github_ci:${gitHubAccessToken}@${gitOpsUrl}
+
 
 //                                    kustomize edit set image ${GIT_ACCOUNT}/${PROJECT_NAME}:${TAG}
 

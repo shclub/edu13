@@ -59,10 +59,11 @@ pipeline {
                         kustomize edit set image ${GIT_ACCOUNT}/${PROJECT_NAME}:${TAG}
                         git config --global user.email "shclub@gmail.com"
                         git config --global user.name "shclub"
-                        git config --global push.default simple
+                        git config --global credential.helper store
+                        git config --global -l --show-origin
                         git add .
                         git commit -am 'update image tag ${TAG}'
-                        git push -u origin master
+                        git push  origin master
                     """
                 }
                 print "git push finished !!!"

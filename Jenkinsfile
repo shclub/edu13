@@ -71,6 +71,7 @@ pipeline {
         stage('Cleaning up') {
                     steps {
                         //sh "docker rmi $dockerRepo"//:$BUILD_NUMBER"
+                    print "clean up !!!"
                     }
          }
     }

@@ -53,7 +53,7 @@ pipeline {
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
-                        git clone https://shclub:${gitHubAccessToken}@github.com/${gitOpsUrl}
+                        git clone https://shclub:${gitHubAccessToken}/${gitOpsUrl}
                         cd ./${GIT_OPS_NAME}
                         git checkout ${ENV}
                         kustomize edit set image ${GIT_ACCOUNT}/${PROJECT_NAME}:${TAG}

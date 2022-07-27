@@ -1,4 +1,4 @@
-def PROJECT_NAME = "edu13"
+def PROJECT_NAME = "edu13-backend"
 def GIT_OPS_NAME = "edu13-gitops"
 def GIT_ACCOUNT = "shclub"
 def gitOpsUrl = "github.com/${GIT_ACCOUNT}/${GIT_OPS_NAME}.git"

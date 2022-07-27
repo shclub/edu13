@@ -53,7 +53,7 @@ pipeline {
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
-                        git clone https://shclub:${gitHubAccessToken}@${gitOpsUrl}
+                        git clone https://${gitHubAccessToken}@${gitOpsUrl}
                         cd ./${GIT_OPS_NAME}
                         ls
                         git checkout master

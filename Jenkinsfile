@@ -61,7 +61,7 @@ pipeline {
                    //])
                 }  
                     git(
-                       url: 'ttps://github.com/shclub/edu13-gitops',
+                       url: 'https://github.com/shclub/edu13-gitops',
                        credentialsId: 'github_ci',
                        branch: "master"
                 )

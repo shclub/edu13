@@ -5,7 +5,7 @@ def gitOpsUrl = "github.com/${GIT_ACCOUNT}/${GIT_OPS_NAME}"
 def gitHubOrigin = "github.com/${GIT_ACCOUNT}/${PROJECT_NAME}"
 def gitHubUrl = "https://${gitHubOrigin}"
 def NEXUS_URL = 'https://next.test.co.kr'
-def gitHubAccessToken = "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"
+def gitHubAccessToken = "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"
 def TAG = getTag()
 def ENV = getENV()
 def dockerCredentials = 'docker_ci'
@@ -58,13 +58,12 @@ pipeline {
                         ls
                         git checkout master
                         echo 'test' >>  test2.txt
-                        git config --global core.autocrlf input
                         git remote -v
                         git config --global user.email "shclub@gmail.com"
                         git config --global user.name "shclub"                   
                         git add .
                         git commit -am 'update image tag ${TAG}'
-                        git remote set-url origin https://shclub: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@github.com/shclub/edu13-gitops.git
+                        git remote set-url origin https://shclub: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@github.com/shclub/edu13-gitops.git
                         git push origin master
                     """
                 }

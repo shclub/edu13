@@ -58,7 +58,7 @@ pipeline {
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
-                        ssh -i keyFile
+                        ssh -o ${GITHUB_SSH_KEY}
                         git clone git@github.com:shclub/edu13-gitops.git
                         cd ./${GIT_OPS_NAME}
                         ls

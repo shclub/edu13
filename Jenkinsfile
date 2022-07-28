@@ -59,29 +59,22 @@ pipeline {
                        $class: 'GitSCM', branches: [[name: '*/master']],
                        userRemoteConfigs: [[url: 'https://github.com/shclub/edu13-gitops',credentialsId:'github_ci']]
                    ])
-                }
-            }
-        }
-
-        stage('GitOps update') {
-            steps{
-                print "======kustomization.yaml tag update====="
-                script{
-                    sh """   
-                        ls
+                   sh  """
                         echo 'test' >>  test2.txt
-                        git config --global --add safe.directory /var/lib/jenkins/workspace/skaffold_test
+                        ls
+                        pwd
                         git remote -v
                         git config --global user.email "shclub@gmail.com"
                         git config --global user.name "shclub"                   
                         git add .
                         git commit -am 'update image tag ${TAG}'
                         git push origin master
-                    """
+  
                 }
-                print "git push finished !!!"
             }
-        }// git config --global credential.helper store
+        }
+
+    // git config --global credential.helper store
             //git clone https://shclub:${gitHubAccessToken}@${gitOpsUrl}
             //                        git remote set-url origin https://shclub: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@github.com/shclub/edu13-gitops
 //                        git remote set-url origin https://github_ci_token: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@github.com/shclub/edu13-gitops

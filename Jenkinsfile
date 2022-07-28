@@ -61,8 +61,9 @@ pipeline {
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
-                        mkdir -p .ssh                       
-                        echo off '${GITHUB_SSH_KEY}' >> ~/.ssh/id_rsa
+                        mkdir -p .ssh         
+                        echo off
+                        echo  '${GITHUB_SSH_KEY}' > ~/.ssh/id_rsa
                         chmod 600 ~/.ssh/id_rsa
                         git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no"
                         git clone ${gitOpsUrl}

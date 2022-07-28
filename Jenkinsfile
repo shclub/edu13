@@ -52,10 +52,9 @@ pipeline {
                 print "======kustomization.yaml tag update====="
                 script{
                    withCredentials([sshUserPrivateKey(credentialsId: 'github_ssh',keyFileVariable: 'keyFile')]) {                       
-                    environment {
-                        GITHUB_SSH_KEY = readFile(keyFile)
-                    }
-                    print 'keyFileContent=' + ${GITHUB_SSH_KEY}
+                    
+                    def  GITHUB_SSH_KEY = readFile(keyFile)
+                    print "keyFileContent=" + ${GITHUB_SSH_KEY}
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}

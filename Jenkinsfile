@@ -69,7 +69,7 @@ pipeline {
                         git add .
                         git commit -am 'update image tag ${TAG}'
                         git push origin master
-  
+                   """
                 }
             }
         }

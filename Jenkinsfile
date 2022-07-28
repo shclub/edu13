@@ -6,6 +6,7 @@ def gitHubOrigin = "github.com/${GIT_ACCOUNT}/${PROJECT_NAME}"
 def gitHubUrl = "https://${gitHubOrigin}"
 def NEXUS_URL = 'https://next.test.co.kr'
 def gitHubAccessToken = "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"
+def GITHUB_SSH_KEY = getSSH()
 def TAG = getTag()
 def ENV = getENV()
 def dockerCredentials = 'docker_ci'
@@ -51,14 +52,14 @@ pipeline {
             steps{
                 print "======kustomization.yaml tag update====="
                 script{
-                   withCredentials([sshUserPrivateKey(credentialsId: 'github_ssh',keyFileVariable: 'keyFile')]) {                       
-                    
+                   //withCredentials([sshUserPrivateKey(credentialsId: 'github_ssh',keyFileVariable: 'keyFile')]) {                       
+                    //git config --global core.sshCommand 'echo ${GITHUB_SSH_KEY} | ssh -i /dev/stdin'
                     //def  GITHUB_SSH_KEY = readFile(keyFile)
-                    print "keyFileContent=" + readFile(keyFile) //${GITHUB_SSH_KEY}
+                    //print "keyFileContent=" + readFile(keyFile) //${GITHUB_SSH_KEY}
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
-                        git config --global core.sshCommand 'echo readFile(keyFile) | ssh -i /dev/stdin'
+                        ssh --option ${GITHUB_SSH_KEY}
                         git clone git@github.com:shclub/edu13-gitops.git
                         cd ./${GIT_OPS_NAME}
                         ls
@@ -71,7 +72,7 @@ pipeline {
                         git commit -am 'update image tag ${TAG}'
                         git push origin master
                     """
-                      }            
+                      //}            
                 }
                         
                 print "git push finished !!!"
@@ -100,6 +101,17 @@ pipeline {
                     }
          }
     }
+}
+
+def  getSSH(){
+    
+    def GITHUB_SSH_KEY
+        
+    withCredentials([sshUserPrivateKey(credentialsId: 'github_ssh',keyFileVariable: 'keyFile')]) {                                     
+      GITHUB_SSH_KEY = readFile(keyFile)
+      print "keyFileContent=" + ${GITHUB_SSH_KEY}
+    }
+    return GITHUB_SSH_KEY
 }
 
 def  getTag(){

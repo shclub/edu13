@@ -54,23 +54,24 @@ pipeline {
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
-                        git clone https://shclub@gmail.com:${gitHubAccessToken}@${gitOpsUrl}
+                        git clone https://shclub@github.com/shclub/edu13-gitops
                         cd ./${GIT_OPS_NAME}
                         ls
                         git checkout master
                         echo 'test' >>  test2.txt
+                        git remote set-url origin https://shclub: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@github.com/shclub/edu13-gitops
                         git remote -v
-                        git config --global user.email "shclub@gmail.com"
-                        git config --global user.name "shclub"
-                        git config --global credential.helper store
+                        git config --global user.email 'shclub@gmail.com'
+                        git config --global user.name 'shclub'                   
                         git add .
                         git commit -am 'update image tag ${TAG}'
-                        git push -u origin master
+                        git push  origin master
                     """
                 }
                 print "git push finished !!!"
             }
-        }
+        }// git config --global credential.helper store
+            //git clone https://shclub:${gitHubAccessToken}@${gitOpsUrl}
             //                        git remote set-url origin https://shclub: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@github.com/shclub/edu13-gitops
 //                        git remote set-url origin https://github_ci_token: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@github.com/shclub/edu13-gitops
 

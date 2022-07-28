@@ -55,10 +55,17 @@ pipeline {
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
                    """     
-                   checkout([
-                       $class: 'GitSCM', branches: [[name: '*/master']],
-                       userRemoteConfigs: [[url: 'https://github.com/shclub/edu13-gitops',credentialsId:'github_ci']]
-                   ])
+                   //checkout([
+                   //    $class: 'GitSCM', branches: [[name: '*/master']],
+                   //    userRemoteConfigs: [[url: 'https://github.com/shclub/edu13-gitops',credentialsId:'github_ci']]
+                   //])
+                }  
+                    git(
+                       url: 'ttps://github.com/shclub/edu13-gitops',
+                       credentialsId: 'github_ci',
+                       branch: "master"
+                )
+                script{  
                    sh  """
                         echo 'test' >>  test2.txt
                         ls

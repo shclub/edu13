@@ -57,7 +57,7 @@ pipeline {
                 script{
                    withCredentials([sshUserPrivateKey(credentialsId: 'github_ssh',keyFileVariable: 'keyFile')]) {                       
                     def  GITHUB_SSH_KEY = readFile(keyFile)
-                    print "keyFileContent GITHUB= ${GITHUB_SSH_KEY}       
+                    print "keyFileContent GITHUB" + "${GITHUB_SSH_KEY}"       
                     print "keyFileContent=" + readFile(keyFile) 
 //                                                   echo ${GITHUB_SSH_KEY} >> rsa_id
                     sh """   

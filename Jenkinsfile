@@ -64,8 +64,8 @@ pipeline {
                         git config --global user.name "shclub"                   
                         git add .
                         git commit -am 'update image tag ${TAG}'
-                        git remote set-url origin https://shclub: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@github.com/shclub/edu13-gitops
-                        git push  origin master
+                        git remote set-url origin https://shclub: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@github.com/shclub/edu13-gitops.git
+                        git push origin master
                     """
                 }
                 print "git push finished !!!"

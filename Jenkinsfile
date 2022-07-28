@@ -47,7 +47,7 @@ pipeline {
             }
         }
         
-        stage('GitOps update') {
+        stage('check out update') {
             steps{
                 print "====== check out update====="
                 script{           

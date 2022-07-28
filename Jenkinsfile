@@ -70,7 +70,7 @@ pipeline {
                         echo 'test' >>  test2.txt
                         ls
                         pwd
-                        git config --global --add safe.directory /var/lib/jenkins/workspace
+                        git config --global --add safe.directory /var/lib/jenkins/workspace/skaffold_test
                         git remote -v
                         git config --global user.email "shclub@gmail.com"
                         git config --global user.name "shclub"                   

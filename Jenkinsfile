@@ -1,11 +1,15 @@
 def PROJECT_NAME = "edu13-backend"
 def GIT_OPS_NAME = "edu13-gitops"
 def GIT_ACCOUNT = "shclub"
-def gitOpsUrl = "github.com/${GIT_ACCOUNT}/${GIT_OPS_NAME}"
+def GIT_EMAIL = "shclub@gmail.com"
+
+def gitOpsUrl = "git@github.com:${GIT_ACCOUNT}/${GIT_OPS_NAME}"
+//def gitOpsUrl = "github.com/${GIT_ACCOUNT}/${GIT_OPS_NAME}"
 def gitHubOrigin = "github.com/${GIT_ACCOUNT}/${PROJECT_NAME}"
 def gitHubUrl = "https://${gitHubOrigin}"
 def NEXUS_URL = 'https://next.test.co.kr'
-def gitHubAccessToken = "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"
+// GihtHub는 token 보이게 하는 경우 해당 토큰은 만료가 되어 사용 불가. SSH로 연결해야 함
+//def gitHubAccessToken = "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"
 def TAG = getTag()
 def ENV = getENV()
 def dockerCredentials = 'docker_ci'
@@ -16,7 +20,7 @@ pipeline {
         docker {
             // ## https://github.com/shclub/dockerfile 참고
             image 'shclub/build-tool:v1.0.0'
-            // ## jenkins slave 가 Docker로 뜬 경우  ( docker in docker )
+            // 성능을 위해서 라이브러리는 jenkins 서버에 저장
             args '-u root:root -v /var/run/docker.sock:/var/run/docker.sock -v /root/.m2:/root/.m2'
             // ## Docker hub 사용시 불필요
             //registryUrl NEXUS_URL
@@ -32,7 +36,7 @@ pipeline {
                 script{
                     docker.withRegistry('', dockerCredentials) {
                         // ## 폐쇠망에 maven 설정이 있는 경우
-                        //configFileProvider([configFile(fileId: 'icis-tr-maven_setting', variable: 'maven_settings')]) {
+                        //configFileProvider([configFile(fileId: 'test-maven_setting', variable: 'maven_settings')]) {
                             sh  """
                                 pwd
                                 chmod 777 ./mvnw                             
@@ -52,11 +56,10 @@ pipeline {
                 print "======kustomization.yaml tag update====="
                 script{
                    withCredentials([sshUserPrivateKey(credentialsId: 'github_ssh',keyFileVariable: 'keyFile')]) {                       
-                    //git config --global core.sshCommand 'echo ${GITHUB_SSH_KEY} | ssh -i /dev/stdin'
                     def  GITHUB_SSH_KEY = readFile(keyFile)
-                    print "keyFileContent=" + readFile(keyFile) //${GITHUB_SSH_KEY}
+                    print "keyFileContent GITHUB= ${GITHUB_SSH_KEY}       
+                    print "keyFileContent=" + readFile(keyFile) 
 //                                                   echo ${GITHUB_SSH_KEY} >> rsa_id
-
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
@@ -77,13 +80,13 @@ VcaiRcXtydUQaCnrhK1tAAAAEHNoY2x1YkBnbWFpbC5jb20BAgMEBQ==
 -----END OPENSSH PRIVATE KEY-----' >> ~/.ssh/rsa_id
                         chmod 600 ~/.ssh/rsa_id
                         git config --global core.sshCommand "ssh -i ~/.ssh/rsa_id -o StrictHostKeyChecking=no"
-                        git clone git@github.com:shclub/edu13-gitops.git
+                        git clone ${gitOpsUrl}
                         cd ./${GIT_OPS_NAME}
                         ls
                         git checkout master
                         kustomize edit set image ${GIT_ACCOUNT}/${PROJECT_NAME}:${TAG}
-                        git config --global user.email "shclub@gmail.com"
-                        git config --global user.name "shclub"                   
+                        git config --global user.email "${GIT_EMAIL}"
+                        git config --global user.name "${GIT_ACCOUNT}"                   
                         git add .
                         git commit -am 'update image tag ${TAG}'
                         git push origin master
@@ -94,28 +97,6 @@ VcaiRcXtydUQaCnrhK1tAAAAEHNoY2x1YkBnbWFpbC5jb20BAgMEBQ==
                 print "git push finished !!!"
             }
         }
-
-    // git config --global credential.helper store
-            //git clone https://shclub:${gitHubAccessToken}@${gitOpsUrl}
-            //                        git remote set-url origin https://shclub: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@github.com/shclub/edu13-gitops
-//                        git remote set-url origin https://github_ci_token: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@github.com/shclub/edu13-gitops
-
-            
-                      //  git config --global user.email "shclub@gmail.com"
-                       // git config --global user.name "shclub"
-                       // git config --global credential.helper store
-                        //git config --global -l --show-origin
-            //                        git remote set-url origin https://github_ci:${gitHubAccessToken}@${gitOpsUrl}
-
-
-//                                    kustomize edit set image ${GIT_ACCOUNT}/${PROJECT_NAME}:${TAG}
-
-        stage('Cleaning up') {
-                    steps {
-                        //sh "docker rmi $dockerRepo"//:$BUILD_NUMBER"
-                    print "clean up !!!"
-                    }
-         }
     }
 }
 

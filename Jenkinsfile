@@ -31,7 +31,7 @@ pipeline {
 
 
     stages {
-        stage('Build') {
+        stage('Build : skaffold') {
             steps {
                 script{
                     docker.withRegistry('', dockerCredentials) {
@@ -51,7 +51,7 @@ pipeline {
             }
         }
         
-      stage('GitOps update') {
+      stage('GitOps update : kustomize') {
             steps{
                 print "======kustomization.yaml tag update====="
                 script{
@@ -62,7 +62,7 @@ pipeline {
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
                         mkdir -p .ssh         
-                        echo off
+                        set +x
                         echo  '${GITHUB_SSH_KEY}' > ~/.ssh/id_rsa
                         chmod 600 ~/.ssh/id_rsa
                         git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no"

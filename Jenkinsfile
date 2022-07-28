@@ -65,7 +65,6 @@ pipeline {
                 script{
                     sh """   
                         cd ~
-                        rm -rf ./${GIT_OPS_NAME}
                         cd ./${GIT_OPS_NAME}
                         ls
                         echo 'test' >>  test2.txt

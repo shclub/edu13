@@ -57,15 +57,16 @@ pipeline {
                 script{
                    withCredentials([sshUserPrivateKey(credentialsId: 'github_ssh',keyFileVariable: 'keyFile')]) {                       
                     def  GITHUB_SSH_KEY = readFile(keyFile)
-                    print "keyFileContent GITHUB" + "${GITHUB_SSH_KEY}"       
-//                    print "keyFileContent=" + readFile(keyFile) 
+//                    print "keyFileContent GITHUB" + "${GITHUB_SSH_KEY}"  
+                                                //   git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no"
+
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
                         mkdir -p .ssh                       
                         echo '${GITHUB_SSH_KEY}' >> ~/.ssh/id_rsa
                         chmod 600 ~/.ssh/id_rsa
-                        git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no"
+                        git config --global core.sshCommand "echo '${GITHUB_SSH_KEY}' | ssh -i /dev/stdin -o StrictHostKeyChecking=no"
                         git clone ${gitOpsUrl}
                         cd ./${GIT_OPS_NAME}
                         ls

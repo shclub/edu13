@@ -57,7 +57,7 @@ pipeline {
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
-                        git config --add --local core.sshCommand 'echo "${GITHUB_SSH_KEY}" | ssh -i /dev/stdin '
+                        git config --add --local core.sshCommand 'echo ${GITHUB_SSH_KEY} | ssh -i /dev/stdin'
                         git clone git@github.com:shclub/edu13-gitops.git
                         cd ./${GIT_OPS_NAME}
                         ls

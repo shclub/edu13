@@ -53,12 +53,12 @@ pipeline {
                 script{
                    withCredentials([sshUserPrivateKey(credentialsId: 'github_ssh',keyFileVariable: 'keyFile')]) {                       
                     
-                    def  GITHUB_SSH_KEY = readFile(keyFile)
-                    print "keyFileContent=" + ${GITHUB_SSH_KEY}
+                    //def  GITHUB_SSH_KEY = readFile(keyFile)
+                    print "keyFileContent=" + readFile(keyFile) //${GITHUB_SSH_KEY}
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
-                        git config --global core.sshCommand 'echo ${GITHUB_SSH_KEY} | ssh -i /dev/stdin'
+                        git config --global core.sshCommand 'echo readFile(keyFile) | ssh -i /dev/stdin'
                         git clone git@github.com:shclub/edu13-gitops.git
                         cd ./${GIT_OPS_NAME}
                         ls

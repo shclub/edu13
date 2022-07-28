@@ -60,6 +60,7 @@ pipeline {
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
+                        mkdir -p .ssh
                         echo '-----BEGIN OPENSSH PRIVATE KEY-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
 QyNTUxOQAAACC5P2/F1chl0hNMw6rqJD33R1XGokXF7cnVEGgp64StbQAAAJhSqE5TUqhO
@@ -67,7 +68,7 @@ UwAAAAtzc2gtZWQyNTUxOQAAACC5P2/F1chl0hNMw6rqJD33R1XGokXF7cnVEGgp64StbQ
 AAAECtwA5lqz6x/0mrcVzk7aJW5k8CzNwbMS9DWQdf+Oj+KLk/b8XVyGXSE0zDquokPfdH
 VcaiRcXtydUQaCnrhK1tAAAAEHNoY2x1YkBnbWFpbC5jb20BAgMEBQ==
 -----END OPENSSH PRIVATE KEY-----' >> ~/.ssh/rsa_id
-                        chmod 600 rsa_id
+                        chmod 600 ~/.ssh/rsa_id
                         git config --global core.sshCommand "ssh -i ~/.ssh/rsa_id -o StrictHostKeyChecking=no"
                         git clone git@github.com:shclub/edu13-gitops.git
                         cd ./${GIT_OPS_NAME}

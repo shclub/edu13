@@ -61,14 +61,14 @@ pipeline {
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
                         mkdir -p .ssh
-                        echo    'Host github.com
+                        echo   "Host github.com
                                   HostName github.com
                                   User git
                                   AddKeysToAgent yes
                                   UseKeychain yes
                                   IdentityFile ~/.ssh/rsa_id
                                 Host *
-                                  IdentitiesOnly yes' >> ~/.ssh/config
+                                  IdentitiesOnly yes" >> ~/.ssh/config
                         echo '-----BEGIN OPENSSH PRIVATE KEY-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
 QyNTUxOQAAACC5P2/F1chl0hNMw6rqJD33R1XGokXF7cnVEGgp64StbQAAAJhSqE5TUqhO

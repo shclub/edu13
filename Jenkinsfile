@@ -55,10 +55,11 @@ pipeline {
                     //git config --global core.sshCommand 'echo ${GITHUB_SSH_KEY} | ssh -i /dev/stdin'
                     def  GITHUB_SSH_KEY = readFile(keyFile)
                     print "keyFileContent=" + readFile(keyFile) //${GITHUB_SSH_KEY}
+//                                                   echo ${GITHUB_SSH_KEY} >> rsa_id
+
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
-                        echo ${GITHUB_SSH_KEY} >> rsa_id
                         git config --global core.sshCommand "ssh -i rsa_id"
                         git clone git@github.com:shclub/edu13-gitops.git
                         cd ./${GIT_OPS_NAME}

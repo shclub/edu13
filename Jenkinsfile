@@ -25,6 +25,10 @@ pipeline {
         }
     }
 
+    environment {
+        GITHUB_SSH_KEY     =  credentials('id_ed25519')
+    }
+
     stages {
         stage('Build') {
             steps {
@@ -53,17 +57,17 @@ pipeline {
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
-                        git clone https://github.com/shclub/edu13-gitops
+                        sed GITHUB_SSH_KEY
+                        git clone git@github.com:shclub/edu13-gitops.git
                         cd ./${GIT_OPS_NAME}
                         ls
                         git checkout master
-                        echo 'test' >>  test2.txt
+                        echo 'test' >>  test7.txt
                         git remote -v
                         git config --global user.email "shclub@gmail.com"
                         git config --global user.name "shclub"                   
                         git add .
                         git commit -am 'update image tag ${TAG}'
-                        git remote set-url origin https://shclub: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@github.com/shclub/edu13-gitops.git
                         git push origin master
                     """
                 }

@@ -5,7 +5,7 @@ def gitOpsUrl = "github.com/${GIT_ACCOUNT}/${GIT_OPS_NAME}"
 def gitHubOrigin = "github.com/${GIT_ACCOUNT}/${PROJECT_NAME}"
 def gitHubUrl = "https://${gitHubOrigin}"
 def NEXUS_URL = 'https://next.test.co.kr'
-def gitHubAccessToken = "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"
+def gitHubAccessToken = "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"
 //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"
 def TAG = getTag()
 def ENV = getENV()
@@ -47,44 +47,35 @@ pipeline {
             }
         }
         
-        stage('check out update') {
+      stage('GitOps update') {
             steps{
-                print "====== check out update====="
-                script{      
-                   sh  """
+                print "======kustomization.yaml tag update====="
+                script{
+                    sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
-                   """     
-                   //checkout([
-                   //    $class: 'GitSCM', branches: [[name: '*/master']],
-                   //    userRemoteConfigs: [[url: 'https://github.com/shclub/edu13-gitops',credentialsId:'github_ci']]
-                   //])
-                }  
-                    git(
-                       url: 'https://github.com/shclub/edu13-gitops',
-                       credentialsId: 'github_ci',
-                       branch: "master"
-                )
-                script{  
-                   sh  """
-                        echo 'test' >>  test2.txt
+                        git clone https://shclub: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@github.com/shclub/edu13-gitops
+                        cd ./${GIT_OPS_NAME}
                         ls
-                        pwd
-                        git config --global --add safe.directory /var/lib/jenkins/workspace/skaffold_test
+                        git checkout master
+                        echo 'test' >>  test2.txt
+                        git config --global core.autocrlf input
                         git remote -v
                         git config --global user.email "shclub@gmail.com"
                         git config --global user.name "shclub"                   
                         git add .
                         git commit -am 'update image tag ${TAG}'
+                        git remote set-url origin https://github.com/shclub/edu13-gitops.git
                         git push origin master
-                   """
+                    """
                 }
+                print "git push finished !!!"
             }
         }
 
     // git config --global credential.helper store
             //git clone https://shclub:${gitHubAccessToken}@${gitOpsUrl}
-            //                        git remote set-url origin https://shclub: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@github.com/shclub/edu13-gitops
+            //                        git remote set-url origin https://shclub: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@github.com/shclub/edu13-gitops
 //                        git remote set-url origin https://github_ci_token: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@github.com/shclub/edu13-gitops
 
             

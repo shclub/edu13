@@ -68,7 +68,7 @@ pipeline {
                                   HostName github.com
                                   User git
                                   AddKeysToAgent yes
-                                  IdentityFile ~/.ssh/rsa_id
+                                  IdentityFile ~/.ssh/id_rsa
                                 Host *
                                   IdentitiesOnly yes" >> ~/.ssh/config
                         echo '-----BEGIN OPENSSH PRIVATE KEY-----
@@ -77,9 +77,9 @@ QyNTUxOQAAACC5P2/F1chl0hNMw6rqJD33R1XGokXF7cnVEGgp64StbQAAAJhSqE5TUqhO
 UwAAAAtzc2gtZWQyNTUxOQAAACC5P2/F1chl0hNMw6rqJD33R1XGokXF7cnVEGgp64StbQ
 AAAECtwA5lqz6x/0mrcVzk7aJW5k8CzNwbMS9DWQdf+Oj+KLk/b8XVyGXSE0zDquokPfdH
 VcaiRcXtydUQaCnrhK1tAAAAEHNoY2x1YkBnbWFpbC5jb20BAgMEBQ==
------END OPENSSH PRIVATE KEY-----' >> ~/.ssh/rsa_id
-                        chmod 600 ~/.ssh/rsa_id
-                        git config --global core.sshCommand "ssh -i ~/.ssh/rsa_id -o StrictHostKeyChecking=no"
+-----END OPENSSH PRIVATE KEY-----' >> ~/.ssh/id_rsa
+                        chmod 600 ~/.ssh/id_rsa
+                        git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no"
                         git clone ${gitOpsUrl}
                         cd ./${GIT_OPS_NAME}
                         ls

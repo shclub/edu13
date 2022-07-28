@@ -50,7 +50,11 @@ pipeline {
         stage('check out update') {
             steps{
                 print "====== check out update====="
-                script{           
+                script{      
+                   sh  """
+                        cd ~
+                        rm -rf ./${GIT_OPS_NAME}
+                   """     
                    checkout([
                        $class: 'GitSCM', branches: [[name: '*/master']],
                        userRemoteConfigs: [[url: 'https://github.com/shclub/edu13-gitops',credentialsId:'github_ci']]
@@ -64,8 +68,6 @@ pipeline {
                 print "======kustomization.yaml tag update====="
                 script{
                     sh """   
-                        cd ~
-                        cd ./${GIT_OPS_NAME}
                         ls
                         echo 'test' >>  test2.txt
                         git remote -v

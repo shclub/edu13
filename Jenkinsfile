@@ -65,7 +65,6 @@ pipeline {
                                   HostName github.com
                                   User git
                                   AddKeysToAgent yes
-                                  UseKeychain yes
                                   IdentityFile ~/.ssh/rsa_id
                                 Host *
                                   IdentitiesOnly yes" >> ~/.ssh/config

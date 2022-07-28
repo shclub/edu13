@@ -25,9 +25,6 @@ pipeline {
         }
     }
 
-    environment {
-        GITHUB_SSH_KEY = credentials('github_ssh')
-    }
 
     stages {
         stage('Build') {
@@ -54,6 +51,11 @@ pipeline {
             steps{
                 print "======kustomization.yaml tag update====="
                 script{
+                   withCredentials([sshUserPrivateKey(credentialsId: 'github_ssh',keyFileVariable: 'keyFile')]) {                       
+                    environment {
+                        GITHUB_SSH_KEY = readFile(keyFile)
+                    }
+                    print 'keyFileContent=' + readFile(keyFile)
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
@@ -70,7 +72,9 @@ pipeline {
                         git commit -am 'update image tag ${TAG}'
                         git push origin master
                     """
+                      }            
                 }
+                        
                 print "git push finished !!!"
             }
         }

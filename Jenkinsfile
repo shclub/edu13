@@ -5,7 +5,8 @@ def gitOpsUrl = "github.com/${GIT_ACCOUNT}/${GIT_OPS_NAME}"
 def gitHubOrigin = "github.com/${GIT_ACCOUNT}/${PROJECT_NAME}"
 def gitHubUrl = "https://${gitHubOrigin}"
 def NEXUS_URL = 'https://next.test.co.kr'
-def gitHubAccessToken = "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"
+def gitHubAccessToken = "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"
+//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"
 def TAG = getTag()
 def ENV = getENV()
 def dockerCredentials = 'docker_ci'

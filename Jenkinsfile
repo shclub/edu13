@@ -53,7 +53,7 @@ pipeline {
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
-                        git clone https://git:${gitHubAccessToken}@${gitOpsUrl}
+                        git clone https://shclub:${gitHubAccessToken}@${gitOpsUrl}
                         cd ./${GIT_OPS_NAME}
                         ls
                         git checkout master
@@ -64,7 +64,7 @@ pipeline {
                         git config --global credential.helper store
                         git add .
                         git commit -am 'update image tag ${TAG}'
-                        git push origin master
+                        git push -u origin master
                     """
                 }
                 print "git push finished !!!"

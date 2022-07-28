@@ -26,7 +26,7 @@ pipeline {
     }
 
     environment {
-        GITHUB_SSH_KEY     =  credentials('id_ed25519')
+        GITHUB_SSH_KEY = credentials('github_ssh')
     }
 
     stages {

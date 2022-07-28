@@ -55,11 +55,19 @@ pipeline {
                     //git config --global core.sshCommand 'echo ${GITHUB_SSH_KEY} | ssh -i /dev/stdin'
                     def  GITHUB_SSH_KEY = readFile(keyFile)
                     print "keyFileContent=" + readFile(keyFile) //${GITHUB_SSH_KEY}
+                    print "keyFileContent2=" + ${GITHUB_SSH_KEY}       
 //                                                   echo ${GITHUB_SSH_KEY} >> rsa_id
 
                     sh """   
                         cd ~
                         rm -rf ./${GIT_OPS_NAME}
+                        echo '-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
+QyNTUxOQAAACC5P2/F1chl0hNMw6rqJD33R1XGokXF7cnVEGgp64StbQAAAJhSqE5TUqhO
+UwAAAAtzc2gtZWQyNTUxOQAAACC5P2/F1chl0hNMw6rqJD33R1XGokXF7cnVEGgp64StbQ
+AAAECtwA5lqz6x/0mrcVzk7aJW5k8CzNwbMS9DWQdf+Oj+KLk/b8XVyGXSE0zDquokPfdH
+VcaiRcXtydUQaCnrhK1tAAAAEHNoY2x1YkBnbWFpbC5jb20BAgMEBQ==
+-----END OPENSSH PRIVATE KEY-----' >> rsa_id
                         git config --global core.sshCommand "ssh -i rsa_id"
                         git clone git@github.com:shclub/edu13-gitops.git
                         cd ./${GIT_OPS_NAME}

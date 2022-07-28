@@ -74,8 +74,7 @@ VcaiRcXtydUQaCnrhK1tAAAAEHNoY2x1YkBnbWFpbC5jb20BAgMEBQ==
                         cd ./${GIT_OPS_NAME}
                         ls
                         git checkout master
-                        echo 'test' >>  test7.txt
-                        git remote -v
+                        kustomize edit set image ${GIT_ACCOUNT}/${PROJECT_NAME}:${TAG}
                         git config --global user.email "shclub@gmail.com"
                         git config --global user.name "shclub"                   
                         git add .

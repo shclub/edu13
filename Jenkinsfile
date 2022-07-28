@@ -55,7 +55,6 @@ pipeline {
                     //git config --global core.sshCommand 'echo ${GITHUB_SSH_KEY} | ssh -i /dev/stdin'
                     def  GITHUB_SSH_KEY = readFile(keyFile)
                     print "keyFileContent=" + readFile(keyFile) //${GITHUB_SSH_KEY}
-                    print "keyFileContent2=" + ${GITHUB_SSH_KEY}       
 //                                                   echo ${GITHUB_SSH_KEY} >> rsa_id
 
                     sh """   

@@ -18,11 +18,11 @@ pipeline {
         
     agent {
         docker {
-            // ## https://github.com/shclub/dockerfile 참고
+            // https://github.com/shclub/dockerfile 참고
             image 'shclub/build-tool:v1.0.0'
             // 성능을 위해서 라이브러리는 jenkins 서버에 저장
             args '-u root:root -v /var/run/docker.sock:/var/run/docker.sock -v /root/.m2:/root/.m2'
-            // ## Docker hub 사용시 불필요
+            // ocker hub 사용시 불필요. 아래는 nexus를 private docker registry 로 사용한 경우 설정
             //registryUrl NEXUS_URL
             //registryCredentialsId 'docker_ci'
             reuseNode true
@@ -35,7 +35,7 @@ pipeline {
             steps {
                 script{
                     docker.withRegistry('', dockerCredentials) {
-                        // ## 폐쇠망에 maven 설정이 있는 경우
+                        // 폐쇄망에 maven 설정이 있는 경우
                         //configFileProvider([configFile(fileId: 'test-maven_setting', variable: 'maven_settings')]) {
                             sh  """
                                 pwd

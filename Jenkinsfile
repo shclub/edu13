@@ -12,6 +12,7 @@ def NEXUS_URL = 'https://next.test.co.kr'
 //def gitHubAccessToken = "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"
 def TAG = getTag()
 def ENV = getENV()
+// Jenkins Credential 에서 설정한 docker registry
 def dockerCredentials = 'docker_ci'
 
 pipeline {

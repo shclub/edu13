@@ -66,7 +66,7 @@ pipeline {
                         set +x
                         echo  '${GITHUB_SSH_KEY}' > ~/.ssh/id_rsa
                         chmod 600 ~/.ssh/id_rsa
-                        git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no shclub@gmail.com"
+                        git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no "
                         git clone ${gitOpsUrl}
                         cd ./${GIT_OPS_NAME}
                         git checkout master
@@ -75,7 +75,7 @@ pipeline {
                         git config --global user.name "${GIT_ACCOUNT}"                   
                         git add .
                         git commit -am 'update image tag ${TAG}'
-                        git push origin master
+                        GIT_ASKPASS=true git push origin master
                     """
                       }            
                 }

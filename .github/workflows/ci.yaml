@@ -1,0 +1,50 @@
+name: CI
+on:      
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "TAG"
+        required: true
+        default: "master"
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
+#on:
+#  push:
+#    paths:
+#      - src/**
+#      - action.yml
+#      - .github/workflows/**
+jobs:
+  start:
+    name: Start K8s cluster
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Start Minikube
+        id: minikube
+        uses: hiberbee/github-action-minikube@latest
+        with:
+          profile: github
+
+      - name: Get Minikube status
+        run: minikube status
+
+      - name: Get cluster info
+        run: kubectl cluster-info
+
+      - name: Get Kubernetes pods
+        run: kubectl get services --all-namespaces
+
+      - name: Get Minikube IP
+        run: echo ${{ steps.minikube.outputs.ip }}
+
+      - name: Get Docker containers
+        run: docker ps
+
+      - name: Get Helm releases
+        uses: hiberbee/github-action-helm@latest
+        with:
+          helm-command: list

@@ -49,18 +49,18 @@ jobs:
         run: |
               pwd
               chmod 777 ./mvnw                             
-              echo 'TAG => ' ${{ steps.meta.outputs.tags }}
+              echo 'TAG => ' ${{ github.event.inputs.name }}
               echo 'ENV => ' ${ENV}
               export SKAFFOLD_CACHE_ARTIFACTS=false
-              skaffold build -p dev -t ${{ steps.meta.outputs.tags }}      
+              skaffold build -p dev -t ${{ github.event.inputs.name }}     
       - name: Kustomize
         run: |
               git clone https://${{ env.GIT_OPS_URL }}
               cd ./${{ env.GIT_OPS_NAME }}
               git checkout master
-              kustomize edit set image ${{ github.actor }}/${{ env.PROJECT_NAME }}:${{ steps.meta.outputs.tags }}
+              kustomize edit set image ${{ github.actor }}/${{ env.PROJECT_NAME }}:${{ github.event.inputs.name }}
               git config --global user.email "${{ env.GIT_EMAIL }}"
               git config --global user.name "${{ github.actor }}"                   
               git add .
-              git commit -am 'update image tag ${{ steps.meta.outputs.tags }}'
+              git commit -am 'update image tag ${{ github.event.inputs.name }}'
               GIT_ASKPASS=true git push origin master

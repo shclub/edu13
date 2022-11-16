@@ -1,0 +1,48 @@
+name: Docker test
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+on:      
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "TAG"
+        required: true
+        default: "master"
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      # This is used to complete the identity challenge
+      # with sigstore/fulcio when running outside of PRs.
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - uses: shclub/docker-run-action@v3
+        with:
+          image: shclub/build-tool:v1.0.0
+          options: -u root:root -v /var/run/docker.sock:/var/run/docker.sock
+          run: |
+              pwd
+              chmod 777 ./mvnw                             
+              echo 'TAG => ' ${TAG}
+              echo 'ENV => ' ${ENV}
+              export SKAFFOLD_CACHE_ARTIFACTS=false
+              skaffold build -p master -t tt
+      

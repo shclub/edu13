@@ -63,5 +63,5 @@ jobs:
               git config --global user.name "${{ github.actor }}"                   
               git add .
               git commit -am 'update image tag ${{ github.event.inputs.name }}'
-              git remote set-url origin https://${{ secrets.GITHUB_TOKEN }}@${{ env.GIT_OPS_URL }}
+              git remote set-url origin https://shclub:${{ secrets.GITHUB_TOKEN }}@${{ env.GIT_OPS_URL }}
               GIT_ASKPASS=true git push origin master

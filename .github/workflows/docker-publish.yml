@@ -22,7 +22,7 @@ env:
 
 jobs:
   build:
-    runs-on: shclub/build-tool:v1.0.0
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
@@ -73,6 +73,15 @@ jobs:
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
           context: .
+          image: shclub/build-tool:v1.0.0
+          options: -u root:root -v /var/run/docker.sock:/var/run/docker.sock 
+          run: |
+              pwd
+              chmod 777 ./mvnw                             
+              echo 'TAG => ' ${TAG}
+              echo 'ENV => ' ${ENV}
+              export SKAFFOLD_CACHE_ARTIFACTS=false
+              skaffold build -p master -t tt
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

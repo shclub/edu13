@@ -56,7 +56,7 @@ jobs:
       - name: Kustomize
                     #git checkout master
         run: |
-              git clone https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@${{ env.GIT_OPS_URL }}
+              git clone https://${{ env.GIT_OPS_URL }}
               cd ./${{ env.GIT_OPS_NAME }}
               kustomize edit set image ${{ github.actor }}/${{ env.PROJECT_NAME }}:${{ github.event.inputs.name }}
               git config --global user.email "${{ env.GIT_EMAIL }}"

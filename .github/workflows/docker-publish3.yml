@@ -55,6 +55,7 @@ jobs:
               skaffold build -p dev -t ${{ github.event.inputs.name }}     
       - name: Kustomize
         run: |
+              git config --global credential.helper cache
               git clone https://${{ env.GIT_OPS_URL }}
               cd ./${{ env.GIT_OPS_NAME }}
               git checkout master

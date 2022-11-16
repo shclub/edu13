@@ -55,8 +55,7 @@ jobs:
               skaffold build -p dev -t ${{ github.event.inputs.name }}     
       - name: Kustomize
         run: |
-              git config --global credential.helper cache
-              git clone https://${{ env.GIT_OPS_URL }}
+              git clone https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@${{ env.GIT_OPS_URL }}
               cd ./${{ env.GIT_OPS_NAME }}
               git checkout master
               kustomize edit set image ${{ github.actor }}/${{ env.PROJECT_NAME }}:${{ github.event.inputs.name }}

@@ -18,7 +18,10 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
-
+  PROJECT_NAME: edu13-backend
+  GIT_OPS_NAME: edu13-gitops
+  GIT_EMAIL: shclub@gmail.com
+  GIT_OPS_URL: github.com/${{ github.actor }}/$GIT_OPS_NAME
 
 jobs:
   build:
@@ -53,12 +56,12 @@ jobs:
               skaffold build -p dev -t ${{ steps.meta.outputs.tags }}      
       - name: Kustomize
         run: |
-              git clone ${gitOpsUrl}
-              cd ./${GIT_OPS_NAME}
+              git clone https://${{ env.$GIT_OPS_URL }}
+              cd ./${{ env.$GIT_OPS_NAME }}
               git checkout master
-              kustomize edit set image ${GIT_ACCOUNT}/${PROJECT_NAME}:${TAG}
-              git config --global user.email "${GIT_EMAIL}"
-              git config --global user.name "${GIT_ACCOUNT}"                   
+              kustomize edit set image ${{ github.actor }}/${{ env.PROJECT_NAME }}:${{ steps.meta.outputs.tags }}
+              git config --global user.email "${{ env.GIT_EMAIL }}"
+              git config --global user.name "${{ github.actor }}"                   
               git add .
-              git commit -am 'update image tag ${TAG}'
+              git commit -am 'update image tag ${{ steps.meta.outputs.tags }}'
               GIT_ASKPASS=true git push origin master

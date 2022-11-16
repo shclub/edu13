@@ -34,9 +34,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - uses: addnab/docker-run-action@v3
+      - uses: shclub/docker-run-action@v3
         with:
-          image: shclub/build-tool:v1.0.0
+          #image: shclub/build-tool:v1.0.0
           options: -u root:root -v /var/run/docker.sock:/var/run/docker.sock
           run: |
               pwd

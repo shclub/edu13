@@ -47,7 +47,18 @@ jobs:
         run: |
               pwd
               chmod 777 ./mvnw                             
-              echo 'TAG => ' ${TAG}
+              echo 'TAG => ' ${{ steps.meta.outputs.tags }}
               echo 'ENV => ' ${ENV}
               export SKAFFOLD_CACHE_ARTIFACTS=false
-              skaffold build -p dev -t tt
+              skaffold build -p dev -t ${{ steps.meta.outputs.tags }}      
+      - name: Kustomize
+        run: |
+              git clone ${gitOpsUrl}
+              cd ./${GIT_OPS_NAME}
+              git checkout master
+              kustomize edit set image ${GIT_ACCOUNT}/${PROJECT_NAME}:${TAG}
+              git config --global user.email "${GIT_EMAIL}"
+              git config --global user.name "${GIT_ACCOUNT}"                   
+              git add .
+              git commit -am 'update image tag ${TAG}'
+              GIT_ASKPASS=true git push origin master

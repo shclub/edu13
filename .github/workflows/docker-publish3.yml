@@ -21,7 +21,7 @@ env:
   PROJECT_NAME: edu13-backend
   GIT_OPS_NAME: edu13-gitops
   GIT_EMAIL: shclub@gmail.com
-  GIT_OPS_URL: github.com/${{ github.actor }}/${{ env.GIT_OPS_NAME }}
+  GIT_OPS_URL: github.com/${{ github.actor }}/$GIT_OPS_NAME
 
 jobs:
   build:

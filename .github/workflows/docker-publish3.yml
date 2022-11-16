@@ -45,4 +45,4 @@ jobs:
               echo 'TAG => ' ${TAG}
               echo 'ENV => ' ${ENV}
               export SKAFFOLD_CACHE_ARTIFACTS=false
-              skaffold build -p master -t tt
+              skaffold build -p github -t tt

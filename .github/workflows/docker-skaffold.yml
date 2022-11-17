@@ -33,7 +33,7 @@ jobs:
       # with sigstore/fulcio when running outside of PRs.
       id-token: write
     container:
-      image: shclub/build-tool:v1.0.0
+      image: ghcr.io/shclub/build-tool:v1.0.0
       options: -u root:root -v /var/run/docker.sock:/var/run/docker.sock  
     steps:
       - name: Checkout repository

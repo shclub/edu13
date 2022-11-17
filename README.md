@@ -1,2 +1,2 @@
 # edu13
-Skaffold + SpringBoot + JWT + H2
+Skaffold + kustomize + SpringBoot + JWT + H2

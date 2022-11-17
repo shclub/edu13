@@ -13,4 +13,4 @@ profiles:
               - -DskipTests
               #- "-Dgs ${maven_settings}"
               - "-Djib.container.environment=SPRING_PROFILES_ACTIVE=dev"
-            fromImage: shclub/jre17-runtime:v1.0.0
+            fromImage: ghcr.io/shclub/jre17-runtime:v1.0.0
